@@ -19,3 +19,13 @@ class ExtAction(http.Controller):
             'rendered_html': False,
             'error': "No display found",
         }
+
+
+class ExtAuth(http.Controller):
+
+    @http.route(['/service/auth'], type='json', auth='none')
+    def exec_action(self):
+        return {
+            'code': 200,
+            'status': True,
+        }
