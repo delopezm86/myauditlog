@@ -4,7 +4,7 @@ from odoo.http import request
 class ExtTrigger(http.Controller):
 
     @http.route(['/service/trigger'], type='json', auth='none')
-    def eval_trigger(self):
+    def eval_trigger(self, data):
         return {
             'rendered_html': False,
             'error': "No display found",
@@ -14,7 +14,7 @@ class ExtTrigger(http.Controller):
 class ExtAction(http.Controller):
 
     @http.route(['/service/action'], type='json', auth='none')
-    def exec_action(self):
+    def exec_action(self, data):
         return {
             'rendered_html': False,
             'error': "No display found",
