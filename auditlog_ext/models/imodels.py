@@ -13,6 +13,6 @@ from odoo.tests.common import Form
 
 
 class AuditLogInh(models.Model):
-    _inherit = 'audit.log'
+    _inherit = 'auditlog.log'
 
     notified_app_ids = fields.Many2many('subscribe.app', string='Apps notified')
