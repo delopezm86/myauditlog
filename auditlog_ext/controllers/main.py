@@ -11,7 +11,8 @@ class ExtTrigger(http.Controller):
     def eval_trigger(self, **kwargs):
         ret_dict = dict()
         _logger.info("*********************************")
-        _logger.info(request)
+        _logger.info(request.get('POST','None'))
+        _logger.info(request.get('GET', 'None'))
         _logger.info("*********************************")
         return {
             'rendered_html': False,
