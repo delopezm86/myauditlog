@@ -10,9 +10,9 @@ class ExtTrigger(http.Controller):
     @http.route(['/service/trigger'], type='json', auth='none')
     def eval_trigger(self, **kwargs):
         ret_dict = dict()
-        _logger.debug("*********************************")
-        _logger.debug(kwargs)
-        _logger.debug("*********************************")
+        _logger.info("*********************************")
+        _logger.info(kwargs)
+        _logger.info("*********************************")
         return {
             'rendered_html': False,
             'error': "No display found"
