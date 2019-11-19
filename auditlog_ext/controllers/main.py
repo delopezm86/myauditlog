@@ -6,11 +6,10 @@ class ExtTrigger(http.Controller):
 
     @http.route(['/service/trigger'], type='json', auth='none')
     def eval_trigger(self):
-        return json.dumps({
-            'rendered_html': False,
-            'error': "No display found",
-            'id':'1234'
-        })
+        class Person():
+             def __init__(self):
+                 pass
+        return [Person()]
 #
 #
 # class ExtAction(http.Controller):
