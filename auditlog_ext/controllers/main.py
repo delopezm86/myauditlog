@@ -8,6 +8,7 @@ class ExtTrigger(http.Controller):
         return {
             'rendered_html': False,
             'error': "No display found",
+            'id':'1234'
         }
 
 
@@ -18,6 +19,7 @@ class ExtAction(http.Controller):
         return {
             'rendered_html': False,
             'error': "No display found",
+            'id': '1234'
         }
 
 
@@ -28,4 +30,5 @@ class ExtAuth(http.Controller):
         return {
             'code': 200,
             'status': True,
+            'id': '1234'
         }
