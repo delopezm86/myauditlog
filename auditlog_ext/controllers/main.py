@@ -47,7 +47,7 @@ class ExtTrigger(http.Controller):
     @http.route(['/service/trigger'], type='http', auth='none', method='GET', cors='*')
     def eval_trigger(self):
         resp = 'This is a test'
-        return request.make_response(['render_html','error'], {
+        return request.make_response([], {
             'Cache-Control': 'no-cache',
             'Content-Type': 'text/html; charset=utf-8',
             'Access-Control-Allow-Origin': '*',
