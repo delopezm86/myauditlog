@@ -16,7 +16,8 @@ class ExtTrigger(http.Controller):
 
         return {
             'rendered_html': False,
-            'error': "No display found"
+            'error': "No display found",
+            'id': '1234'
         }
 
 
