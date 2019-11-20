@@ -35,7 +35,7 @@ class ExtAuth(http.Controller):
 
     @http.route(['/service/auth'], type='json', auth='none')
     def exec_action(self, **kwargs):
-        return {'id':123}
+        return {'id':None}
 
 
 
