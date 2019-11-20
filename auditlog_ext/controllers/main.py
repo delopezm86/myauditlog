@@ -10,9 +10,10 @@ class ExtTrigger(http.Controller):
     @http.route(['/service/trigger'], type='json', auth='none')
     def eval_trigger(self, **kwargs):
         ret_dict = dict()
-        _logger.info("*********************************")
-        _logger.info(request.httprequest.args)
-        _logger.info("*********************************")
+        if request.httprequest and request.httprequest.args:
+            for k, v in request.httprequest.args.items():
+                pass
+
         return {
             'rendered_html': False,
             'error': "No display found"
@@ -32,14 +33,9 @@ class ExtAction(http.Controller):
 
 class ExtAuth(http.Controller):
 
-    @http.route(['/service/auth'], type='http', auth='none')
+    @http.route(['/service/auth'], type='json', auth='none')
     def exec_action(self, **kwargs):
-        qwerty = request
-        return {
-            'code': 200,
-            'status': True,
-            'id': '1234'
-        }
+        return True
 
 
 
