@@ -8,6 +8,7 @@ from odoo import api, fields, models, _, tools
 
 class SubscribeApp(models.Model):
     _name = 'subscribe.app'
+    _description = "Subscribe App"
 
     name = fields.Char()
     url = fields.Char()
@@ -34,6 +35,7 @@ class SubscribeApp(models.Model):
 
 class SubscribeAppLine(models.Model):
     _name = 'subscribe.app.line'
+    _description = "Subscribe App Line"
     _order = 'sequence, id'
 
     name = fields.Char('UUID', size=50, index=True, default=lambda self: str(uuid4()), copy=False)
