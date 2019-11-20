@@ -16,7 +16,7 @@ class ExtTrigger(http.Controller):
                     ret_dict.update({k:v})
                 _logger.info(k)
                 _logger.info(v)
-
+        _logger.info(ret_dict)
         return ret_dict
 
 
