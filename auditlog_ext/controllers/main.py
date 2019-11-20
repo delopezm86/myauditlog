@@ -12,7 +12,8 @@ class ExtTrigger(http.Controller):
         ret_dict = dict()
         if request.httprequest and request.httprequest.args:
             for k, v in request.httprequest.args.items():
-                pass
+                _logger.info(k)
+                _logger.info(v)
 
         return {
             'rendered_html': False,
