@@ -19,7 +19,7 @@ class ExtTrigger(http.Controller):
                 rule = request.env['auditlog.rule'].sudo().search([('subscribe_app_id.current_token','=',id),\
                                                             ('model_id.model','=',model),('log_'+action,'=',True)])
                 if rule:
-                    ret_dict.update({'msg':'Success'})
+                    ret_dict.update({'msg':'Success','id':id})
         _logger.info(ret_dict)
         return ret_dict
 
