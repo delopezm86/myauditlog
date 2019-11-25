@@ -11,9 +11,9 @@ class ExtTrigger(http.Controller):
     def eval_trigger(self, **kwargs):
         ret_dict = dict(code=200,msg='None')
         if request.httprequest and request.httprequest.args and ('id' in request.httprequest.args):
-            if request.env['subscribe.app'].search_count([('current_token', '=', request.httprequest.args.get('id',0)),\
+            if request.env['subscribe.app'].sudo().search_count([('current_token', '=', request.httprequest.args.get('id',0)),\
                                                           ('state','=','active')]):
-                rule = request.env['auditlog.rule'].search([('subscribe_app_id.name','=',\
+                rule = request.env['auditlog.rule'].sudo().search([('subscribe_app_id.name','=',\
                                                              request.httprequest.args.get('id',0)),\
                                                             ('model_id.model','=',\
                                                              request.httprequest.args.get('model','')),\
@@ -42,12 +42,9 @@ class ExtAuth(http.Controller):
         ret_dict = dict(code=200, logged=False)
         if request.httprequest and request.httprequest.args:
             for k, v in request.httprequest.args.items():
-                _logger.info(k)
-                _logger.info(v)
-                if k == 'id' and request.env['subscribe.app'].search_count([('current_token', '=', v),\
+                if k == 'id' and request.env['subscribe.app'].sudo().search_count([('current_token', '=', v),\
                                                                             ('state','=','active')]):
                     ret_dict.update({'logged':True})
-        _logger.info(ret_dict)
         return ret_dict
 
 
