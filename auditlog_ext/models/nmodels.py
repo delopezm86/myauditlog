@@ -14,6 +14,9 @@ class SubscribeApp(models.Model):
     url = fields.Char()
     current_token = fields.Char('Current UUID', compute='_get_current_token', store=True)
     subscribe_app_line_ids = fields.One2many('subscribe.app.line', 'subscribe_app_id', 'Tokens')
+    state = fields.Selection([('active', 'Active'), ('inactive', 'Inactive')],
+        string='Status', required=True, tracking=True, copy=False, default='active')
+
 
     @api.depends('subscribe_app_line_ids')
     def _get_current_token(self):
@@ -30,6 +33,21 @@ class SubscribeApp(models.Model):
                                    sorted(key=lambda app: app.sequence, reverse=False)[0].sequence or 10
             sal_obj.create({'sequence':sequence-1})
 
+
+    def set_active(self):
+        self.ensure_one()
+        self.state = 'active'
+
+
+    def set_disabled(self):
+        self.ensure_one()
+        self.state = 'inactive'
+
+
+    def generate_uuid(self):
+        self.ensure_one()
+        sequence = self.subscribe_app_line_ids and (self.subscribe_app_line_ids[0].sequence - 1) or 10
+        self.env['subscribe.app.line'].create({'sequence':sequence,'subscribe_app_id':self.id})
 
 
 

@@ -1,18 +1,54 @@
 # -*- coding: utf-8 -*-
 
-import time
-import math
-import re
-
-from odoo.osv import expression
-from odoo.tools.float_utils import float_round as round, float_compare
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.exceptions import UserError, ValidationError
 from odoo import api, fields, models, _, tools
-from odoo.tests.common import Form
 
 
 class AuditLogInh(models.Model):
     _inherit = 'auditlog.log'
 
-    notified_app_ids = fields.Many2many('subscribe.app', string='Apps notified')
+    subscribe_app_id = fields.Many2one('subscribe.app', string='Apps subscribed')
+    external = fields.Boolean(compute='_get_external', store=True)
+
+    @api.depends('subscribe_app_id')
+    def _get_external(self):
+        for record in self:
+            record.external = self.subscribe_app_id and True or False
+
+
+
+class AuditLogRuleInh(models.Model):
+    _inherit = 'auditlog.rule'
+
+    subscribe_app_id = fields.Many2one('subscribe.app', string='Apps subscribed')
+    external = fields.Boolean(compute='_get_external', store=True)
+
+    @api.depends('subscribe_app_id')
+    def _get_external(self):
+        for record in self:
+            record.external = self.subscribe_app_id and True or False
+
+
+
+class AuditLogHttpSessionInh(models.Model):
+    _inherit = 'auditlog.http.session'
+
+    subscribe_app_id = fields.Many2one('subscribe.app', string='Apps subscribed')
+    external = fields.Boolean(compute='_get_external', store=True)
+
+    @api.depends('subscribe_app_id')
+    def _get_external(self):
+        for record in self:
+            record.external = self.subscribe_app_id and True or False
+
+
+
+class AuditLogHttpRequestInh(models.Model):
+    _inherit = 'auditlog.http.request'
+
+    subscribe_app_id = fields.Many2one('subscribe.app', string='Apps subscribed')
+    external = fields.Boolean(compute='_get_external', store=True)
+
+    @api.depends('subscribe_app_id')
+    def _get_external(self):
+        for record in self:
+            record.external = self.subscribe_app_id and True or False

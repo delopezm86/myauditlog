@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_zapier_root"
+        name="Zapier"
+        sequence="50"
+        web_icon="auditlog_ext,static/description/gearwheels-couple.png"/>
+
+        <menuitem id="menu_zapier_apps"
+            name="Apps"
+            parent="menu_zapier_root"
+            sequence="10"/>
+
+                <menuitem id="menu_zapier_apps_act"
+                    name="Apps"
+                    parent="menu_zapier_apps"
+                    sequence="10"
+                    action="subscribe_app_view_action"/>
+
+        <menuitem id="menu_zapier_logs"
+            name="Logs"
+            parent="menu_zapier_root"
+            sequence="20"/>
+
+                <menuitem id="menu_zapier_logs_act"
+                    name="Logs"
+                    parent="menu_zapier_logs"
+                    sequence="10"
+                    action="audit_log_view_action"/>
+
+                <menuitem id="menu_zapier_sessions_act"
+                    name="Sessions"
+                    parent="menu_zapier_logs"
+                    sequence="20"
+                    action="audit_sessions_view_action"/>
+
+                <menuitem id="menu_zapier_requests_act"
+                    name="Requests"
+                    parent="menu_zapier_logs"
+                    sequence="30"
+                    action="audit_requests_view_action"/>
+
+        <menuitem id="menu_zapier_config"
+            name="Configuration"
+            parent="menu_zapier_root"
+            sequence="30"/>
+
+                <menuitem id="menu_zapier_rule_act"
+                    name="Rules"
+                    parent="menu_zapier_config"
+                    sequence="10"
+                    action="audit_rule_view_action"/>
+
+</odoo>

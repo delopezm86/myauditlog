@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Audit Logs -->
+        <record id="audit_log_view_action" model="ir.actions.act_window">
+            <field name="name">Logs</field>
+            <field name="res_model">auditlog.log</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="auditlog.view_auditlog_log_search"/>
+            <field name="domain">[('external','=',True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Records will be created automatically
+                </p>
+            </field>
+        </record>
+
+
+    <!-- Audit Rules -->
+        <record id="audit_rule_view_action" model="ir.actions.act_window">
+            <field name="name">Rules</field>
+            <field name="res_model">auditlog.rule</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="auditlog.view_auditlog_rule_search"/>
+            <field name="domain">[('external','=',True)]</field>
+            <field name="context">{'external':True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Define a new record rule
+                </p>
+            </field>
+        </record>
+
+
+        <record id="view_auditlog_rule_form_inh" model="ir.ui.view">
+            <field name="name">view.auditlog.rule.form.inh</field>
+            <field name="model">auditlog.rule</field>
+            <field name="inherit_id" ref="auditlog.view_auditlog_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='action_id']" position="after">
+                    <field name="subscribe_app_id" invisible="not context.get('external', False)"
+                                                   required="context.get('external', False)"/>
+                </xpath>
+                <xpath expr="//field[@name='log_read']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    <!-- Sessions -->
+        <record id="audit_sessions_view_action" model="ir.actions.act_window">
+            <field name="name">Sessions</field>
+            <field name="res_model">auditlog.http.session</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('external','=',True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Records will be created automatically
+                </p>
+            </field>
+        </record>
+
+        <record id="view_auditlog_http_session_form_inh" model="ir.ui.view">
+            <field name="name">view.auditlog.http.session.form.inh</field>
+            <field name="model">auditlog.http.session</field>
+            <field name="inherit_id" ref="auditlog.view_auditlog_http_session_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_auditlog_http_session_tree_inh" model="ir.ui.view">
+            <field name="name">view.auditlog.http.session.tree.inh</field>
+            <field name="model">auditlog.http.session</field>
+            <field name="inherit_id" ref="auditlog.view_auditlog_http_session_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    <!-- Request -->
+        <record id="audit_requests_view_action" model="ir.actions.act_window">
+            <field name="name">Requests</field>
+            <field name="res_model">auditlog.http.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('external','=',True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Records will be created automatically
+                </p>
+            </field>
+        </record>
+
+        <record id="view_auditlog_http_request_form_inh" model="ir.ui.view">
+            <field name="name">view.auditlog.http.request.form.inh</field>
+            <field name="model">auditlog.http.request</field>
+            <field name="inherit_id" ref="auditlog.view_auditlog_http_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_auditlog_http_request_tree_inh" model="ir.ui.view">
+            <field name="name">view.auditlog.http.request.tree.inh</field>
+            <field name="model">auditlog.http.request</field>
+            <field name="inherit_id" ref="auditlog.view_auditlog_http_request_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    <!-- Delete default menus -->
+        <delete model="ir.ui.menu" search="[('id','=', ref('auditlog.menu_action_auditlog_rule_tree'))]"/>
+        <delete model="ir.ui.menu" search="[('id','=', ref('auditlog.menu_audit_logs'))]"/>
+        <delete model="ir.ui.menu" search="[('id','=', ref('auditlog.menu_action_auditlog_http_session_tree'))]"/>
+        <delete model="ir.ui.menu" search="[('id','=', ref('auditlog.menu_action_auditlog_http_request_tree'))]"/>
+
+</odoo>

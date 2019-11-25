@@ -9,13 +9,17 @@ class ExtTrigger(http.Controller):
 
     @http.route(['/service/trigger'], type='json', auth='none')
     def eval_trigger(self, **kwargs):
-        ret_dict = dict(rendered_html=False,error='None')
-        if request.httprequest and request.httprequest.args:
-            for k, v in request.httprequest.args.items():
-                if k == 'id':
-                    ret_dict.update({k:v})
-                _logger.info(k)
-                _logger.info(v)
+        ret_dict = dict(code=200,msg='None')
+        if request.httprequest and request.httprequest.args and ('id' in request.httprequest.args):
+            if request.env['subscribe.app'].search_count([('current_token', '=', request.httprequest.args.get('id',0)),\
+                                                          ('state','=','active')]):
+                rule = request.env['auditlog.rule'].search([('subscribe_app_id.name','=',\
+                                                             request.httprequest.args.get('id',0)),\
+                                                            ('model_id.model','=',\
+                                                             request.httprequest.args.get('model','')),\
+                                                            ('log_'+request.httprequest.args.get('action',''),'=',True)])
+                if rule:
+                    ret_dict.update({'msg':'Success'})
         _logger.info(ret_dict)
         return ret_dict
 
@@ -35,7 +39,13 @@ class ExtAuth(http.Controller):
 
     @http.route(['/service/auth'], type='json', auth='none')
     def exec_action(self, **kwargs):
-        return {'id':None}
+        ret_dict = dict(code=200, logged=False)
+        if request.httprequest and request.httprequest.args:
+            for k, v in request.httprequest.args.items():
+                if k == 'id' and request.env['subscribe.app'].search_count([('current_token', '=', v),\
+                                                                            ('state','=','active')]):
+                    ret_dict.update({'logged':True})
+        return ret_dict
 
 
 

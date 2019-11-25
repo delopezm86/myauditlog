@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Apps Views -->
+        <record id="subscribe_app_view_search" model="ir.ui.view">
+            <field name="name">subscribe.app.view.search</field>
+            <field name="model">subscribe.app</field>
+            <field name="arch" type="xml">
+                <search string="Search Apps">
+                    <field name="name"/>
+                    <field name="current_token"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="subscribe_app_view_tree" model="ir.ui.view">
+            <field name="name">subscribe.app.view.tree</field>
+            <field name="model">subscribe.app</field>
+            <field name="arch" type="xml">
+                <tree string="Apps">
+                    <field name="name"/>
+                    <field name="current_token"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="subscribe_app_view_form" model="ir.ui.view">
+            <field name="name">subscribe.app.view.form</field>
+            <field name="model">subscribe.app</field>
+            <field name="arch" type="xml">
+                <form string="App">
+                    <header>
+                        <button name="set_active" type="object"
+                            string="Activate" class="oe_highlight" states="inactive"/>
+                        <button name="set_disabled" type="object"
+                            string="Deactivate" class="oe_highlight" states="active"/>
+                        <button name="generate_uuid" type="object"
+                            string="Generate UUID" class="oe_highlight" states="active"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                            <group>
+                                <field name="current_token"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Details">
+                                <field name="subscribe_app_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="subscribe_app_view_action" model="ir.actions.act_window">
+            <field name="name">Apps</field>
+            <field name="res_model">subscribe.app</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="subscribe_app_view_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Define a new App
+                </p>
+            </field>
+        </record>
+
+</odoo>

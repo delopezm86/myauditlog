@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_subscribe_app,access_subscribe_app,model_subscribe_app,,1,1,1,1
+access_subscribe_app_line,access_subscribe_app_line,model_subscribe_app_line,,1,1,1,1
