@@ -13,14 +13,11 @@ class ExtTrigger(http.Controller):
         if request.httprequest and request.httprequest.args and ('id' in request.httprequest.args):
             if request.env['subscribe.app'].sudo().search_count([('current_token', '=', request.httprequest.args.get('id',0)),\
                                                           ('state','=','active')]):
-                _logger.info(request.httprequest.args.get('id',0))
-                _logger.info(request.httprequest.args.get('model', 0))
-                _logger.info(request.httprequest.args.get('action', 0))
-                rule = request.env['auditlog.rule'].sudo().search([('subscribe_app_id.current_token','=',\
-                                                             request.httprequest.args.get('id',0)),\
-                                                            ('model_id.model','=',\
-                                                             request.httprequest.args.get('model','')),\
-                                                            ('log_'+request.httprequest.args.get('action','create'),'=',True)])
+                id = request.httprequest.args.get('id',0)
+                model = request.httprequest.args.get('model', 0)
+                action = request.httprequest.args.get('action', 0) and request.httprequest.args.get('action', 0) or 'create'
+                rule = request.env['auditlog.rule'].sudo().search([('subscribe_app_id.current_token','=',id),\
+                                                            ('model_id.model','=',model),('log_'+action,'=',True)])
                 if rule:
                     ret_dict.update({'msg':'Success'})
         _logger.info(ret_dict)
