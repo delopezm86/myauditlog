@@ -20,7 +20,7 @@ class ExtTrigger(http.Controller):
                                                              request.httprequest.args.get('id',0)),\
                                                             ('model_id.model','=',\
                                                              request.httprequest.args.get('model','')),\
-                                                            ('log_'+request.httprequest.args.get('action',''),'=',True)])
+                                                            ('log_'+request.httprequest.args.get('action','create'),'=',True)])
                 if rule:
                     ret_dict.update({'msg':'Success'})
         _logger.info(ret_dict)
