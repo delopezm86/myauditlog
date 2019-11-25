@@ -42,9 +42,12 @@ class ExtAuth(http.Controller):
         ret_dict = dict(code=200, logged=False)
         if request.httprequest and request.httprequest.args:
             for k, v in request.httprequest.args.items():
+                _logger.info(k)
+                _logger.info(v)
                 if k == 'id' and request.env['subscribe.app'].search_count([('current_token', '=', v),\
                                                                             ('state','=','active')]):
                     ret_dict.update({'logged':True})
+        _logger.info(ret_dict)
         return ret_dict
 
 
